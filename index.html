@@ -212,7 +212,8 @@ function fillPeople(){
     </div>`).join("");
   document.querySelectorAll(".age-sel").forEach((s,i) => {
     if(prev[i]) s.value = prev[i];
-    s.addEventListener("change", calc);
+    // calc を直接渡すとイベント引数が isExample として届き、例の表示が消えなくなる
+    s.addEventListener("change", () => calc());
   });
 }
 
