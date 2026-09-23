@@ -6,30 +6,13 @@
 <title>生活保護と家族への通知</title>
 <style>
 :root{
-  --ground:#ffffff; --panel:#f6f8fb; --ink:#1b2430; --sub:#5b6673;
-  --navy:#1e5388; --navy-soft:#e8f0f8; --on-navy:#ffffff;
-  --ok:#16704a; --ok-bg:#e8f5ef;
-  --ng:#a8372c; --ng-bg:#fceeec;
-  --warn:#8a5200; --warn-bg:#fff4dc;
-  --line:#dde3ea; --line-soft:#eef1f5;
-}
-@media (prefers-color-scheme: dark){
-  :root:not([data-theme="light"]){
-    --ground:#14171c; --panel:#1c2027; --ink:#e8ecf1; --sub:#9aa4b0;
-    --navy:#7fb0e6; --navy-soft:#1e2a38; --on-navy:#12161b;
-    --ok:#5cc196; --ok-bg:#16302a;
-    --ng:#e88b7c; --ng-bg:#32211e;
-    --warn:#dcae5e; --warn-bg:#332a17;
-    --line:#333a44; --line-soft:#252b33;
-  }
-}
-:root[data-theme="dark"]{
-  --ground:#14171c; --panel:#1c2027; --ink:#e8ecf1; --sub:#9aa4b0;
-  --navy:#7fb0e6; --navy-soft:#1e2a38; --on-navy:#12161b;
-  --ok:#5cc196; --ok-bg:#16302a;
-  --ng:#e88b7c; --ng-bg:#32211e;
-  --warn:#dcae5e; --warn-bg:#332a17;
-  --line:#333a44; --line-soft:#252b33;
+  /* 常に白基調。配信の画面共有と視聴者の画面で見え方を揃えるため、ダークモードには切り替えない */
+  --ground:#ffffff; --panel:#fafbfc; --ink:#242c36; --sub:#5f6a77;
+  --navy:#2b5d8f; --navy-soft:#eef3f8; --on-navy:#ffffff;
+  --ok:#2a7355; --ok-bg:#f1f7f4;
+  --ng:#a4483c; --ng-bg:#fdf3f1;
+  --warn:#8a6420; --warn-bg:#fdf7ea;
+  --line:#e2e7ec; --line-soft:#f0f3f6;
 }
 *{box-sizing:border-box}
 body{
@@ -53,8 +36,9 @@ h3{font-size:17px; margin:0 0 5px; font-weight:700}
 p{margin:0 0 12px}
 p:last-child{margin-bottom:0}
 .lede{font-size:15.5px; color:var(--sub)}
-.for-who{background:var(--navy); color:var(--on-navy); border-radius:11px; padding:14px 18px; margin-bottom:16px}
-.for-who b{display:block; font-size:13px; letter-spacing:.06em; opacity:.85; margin-bottom:5px}
+.for-who{background:var(--navy-soft); color:var(--ink); border-left:5px solid var(--navy);
+  border-radius:0 11px 11px 0; padding:14px 18px; margin-bottom:16px}
+.for-who b{display:block; font-size:13px; letter-spacing:.06em; color:var(--navy); margin-bottom:5px}
 .for-who ul{margin:0; padding-left:1.15em; font-size:16.5px; font-weight:700; line-height:1.65}
 
 .answer{background:var(--panel); border:3px solid var(--navy); border-radius:13px; padding:16px 18px}

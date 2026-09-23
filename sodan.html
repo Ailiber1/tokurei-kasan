@@ -6,30 +6,13 @@
 <title>生活の相談窓口をさがす</title>
 <style>
 :root{
-  --ground:#ffffff; --panel:#f6f8fb; --ink:#1b2430; --sub:#5b6673;
-  --navy:#1e5388; --navy-soft:#e8f0f8; --on-navy:#ffffff;
-  --ok:#16704a; --ok-bg:#e8f5ef;
-  --ng:#a8372c; --ng-bg:#fceeec;
-  --warn:#8a5200; --warn-bg:#fff4dc;
-  --line:#dde3ea; --line-soft:#eef1f5;
-}
-@media (prefers-color-scheme: dark){
-  :root:not([data-theme="light"]){
-    --ground:#14171c; --panel:#1c2027; --ink:#e8ecf1; --sub:#9aa4b0;
-    --navy:#7fb0e6; --navy-soft:#1e2a38; --on-navy:#12161b;
-    --ok:#5cc196; --ok-bg:#16302a;
-    --ng:#e88b7c; --ng-bg:#32211e;
-    --warn:#dcae5e; --warn-bg:#332a17;
-    --line:#333a44; --line-soft:#252b33;
-  }
-}
-:root[data-theme="dark"]{
-  --ground:#14171c; --panel:#1c2027; --ink:#e8ecf1; --sub:#9aa4b0;
-  --navy:#7fb0e6; --navy-soft:#1e2a38; --on-navy:#12161b;
-  --ok:#5cc196; --ok-bg:#16302a;
-  --ng:#e88b7c; --ng-bg:#32211e;
-  --warn:#dcae5e; --warn-bg:#332a17;
-  --line:#333a44; --line-soft:#252b33;
+  /* 常に白基調。配信の画面共有と視聴者の画面で見え方を揃えるため、ダークモードには切り替えない */
+  --ground:#ffffff; --panel:#fafbfc; --ink:#242c36; --sub:#5f6a77;
+  --navy:#2b5d8f; --navy-soft:#eef3f8; --on-navy:#ffffff;
+  --ok:#2a7355; --ok-bg:#f1f7f4;
+  --ng:#a4483c; --ng-bg:#fdf3f1;
+  --warn:#8a6420; --warn-bg:#fdf7ea;
+  --line:#e2e7ec; --line-soft:#f0f3f6;
 }
 *{box-sizing:border-box}
 body{background:var(--ground); color:var(--ink); margin:0;
@@ -43,8 +26,9 @@ h1{font-size:clamp(25px,5.6vw,34px); line-height:1.35; margin:0 0 9px; font-weig
    color:var(--navy); text-wrap:balance}
 .lede{font-size:15.5px; color:var(--sub); margin:0}
 
-.for-who{background:var(--navy); color:var(--on-navy); border-radius:11px; padding:13px 17px; margin:14px 0 0}
-.for-who b{display:block; font-size:12.5px; letter-spacing:.06em; opacity:.85; margin-bottom:4px}
+.for-who{background:var(--navy-soft); color:var(--ink); border-left:5px solid var(--navy);
+  border-radius:0 11px 11px 0; padding:13px 17px; margin:14px 0 0}
+.for-who b{display:block; font-size:12.5px; letter-spacing:.06em; color:var(--navy); margin-bottom:4px}
 .for-who p{margin:0; font-size:16px; font-weight:700; line-height:1.6}
 
 .fields{display:flex; flex-wrap:wrap; gap:11px; margin-bottom:11px}
@@ -64,7 +48,7 @@ button.go:hover{filter:brightness(1.12)}
 button.go:focus-visible{outline:2.5px solid var(--ink); outline-offset:2px}
 
 .result{margin-top:24px}
-.eg-bar{background:var(--ink); color:var(--ground); font-size:13.5px; line-height:1.6;
+.eg-bar{background:var(--warn-bg); color:var(--ink); border:2px solid var(--warn); border-bottom:none; font-size:13.5px; line-height:1.6;
   padding:9px 15px; border-radius:11px 11px 0 0}
 .eg-bar b{font-size:14.5px}
 .hit{background:var(--panel); border:3px solid var(--ok); border-radius:13px; overflow:hidden}
@@ -86,6 +70,12 @@ dd a{color:var(--navy); font-weight:700}
 .links a{display:inline-flex; align-items:center; gap:7px; font-size:14px; color:var(--navy);
   background:var(--navy-soft); border-radius:6px; padding:9px 12px; text-decoration:none; font-weight:700; line-height:1.5}
 .links a:hover{text-decoration:underline}
+.guide{background:var(--navy-soft); border-left:5px solid var(--navy); border-radius:0 13px 13px 0;
+  padding:18px 20px}
+.guide h3{margin:0 0 8px; font-size:18px; color:var(--navy)}
+.guide p{margin:0 0 8px; font-size:15.5px}
+.guide p:last-child{margin-bottom:0}
+.guide .small{font-size:13.5px; color:var(--sub)}
 .none{background:var(--panel); border:3px solid var(--line); border-radius:13px; padding:16px 18px}
 .none h3{margin:0 0 7px; font-size:18px}
 .note{font-size:13.5px; color:var(--sub); line-height:1.7; margin-top:14px}
@@ -142,11 +132,18 @@ const $ = id => document.getElementById(id);
 const esc = s => String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 
 const PREFS = Object.keys(DATA);
-$("pref").innerHTML = PREFS.map(p => `<option>${p}</option>`).join("");
+$("pref").innerHTML = '<option value="">選んでください</option>' + PREFS.map(p => `<option>${esc(p)}</option>`).join("");
 
 function fillCities(){
   const list = DATA[$("pref").value] || [];
-  $("city").innerHTML = list.map(([c],i) => `<option value="${i}">${esc(c)}</option>`).join("");
+  if(!list.length){
+    $("city").innerHTML = '<option value="">先に都道府県を選んでください</option>';
+    $("city").disabled = true;
+    return;
+  }
+  $("city").disabled = false;
+  $("city").innerHTML = '<option value="">選んでください</option>'
+    + list.map(([c],i) => `<option value="${i}">${esc(c)}</option>`).join("");
 }
 
 function telHtml(tel){
@@ -157,10 +154,21 @@ function telHtml(tel){
   }).join("<br>");
 }
 
+const GUIDE = `<div class="guide">
+  <h3>お住まいの地域を選んでください</h3>
+  <p>上の「都道府県」と「市区町村」を選ぶと、そこの相談窓口の<b>名前・電話番号・住所</b>がここに出ます。</p>
+  <p class="small">全国1,370か所ぶんが入っています。相談は無料で、生活保護を申請すると決めていなくても大丈夫です。</p>
+</div>`;
+
 function show(isExample){
   const pref = $("pref").value;
+  const cityIdx = $("city").value;
+  if(!pref || cityIdx === ""){
+    $("result").innerHTML = GUIDE;
+    return;
+  }
   const rows = DATA[pref] || [];
-  const entry = rows[+$("city").value] || rows[0];
+  const entry = rows[+cityIdx];
   const slug = SLUG[pref] || "";
   const listUrl = `https://minna-tunagaru.jp/ichiran/${slug}/`;
   if(!entry){
@@ -209,12 +217,9 @@ $("go").addEventListener("click", () => {
   $("result").scrollIntoView({behavior:"smooth", block:"start"});
 });
 
-// 初期表示：配信者が実際に相談した窓口を例として出す
-$("pref").value = "長崎県";
+// 初期表示：まだ何も選ばれていない状態から始める（配信で使い方を見せられるように）
 fillCities();
-const i = (DATA["長崎県"] || []).findIndex(([c]) => c === "長崎市");
-if(i >= 0) $("city").value = i;
-show(true);
+show();
 </script>
 </body>
 </html>
