@@ -6,24 +6,30 @@
 <title>生活の相談窓口をさがす</title>
 <style>
 :root{
-  --ground:#f7f4ee; --panel:#fffdf8; --ink:#232b33; --sub:#5f6a74;
-  --navy:#22456e; --navy-soft:#e7edf5; --on-navy:#fdfcf9;
-  --ok:#1d6b4a; --ok-bg:#e4f1e9;
-  --line:#ded6c8; --line-soft:#ece6dc;
+  --ground:#ffffff; --panel:#f6f8fb; --ink:#1b2430; --sub:#5b6673;
+  --navy:#1e5388; --navy-soft:#e8f0f8; --on-navy:#ffffff;
+  --ok:#16704a; --ok-bg:#e8f5ef;
+  --ng:#a8372c; --ng-bg:#fceeec;
+  --warn:#8a5200; --warn-bg:#fff4dc;
+  --line:#dde3ea; --line-soft:#eef1f5;
 }
 @media (prefers-color-scheme: dark){
   :root:not([data-theme="light"]){
-    --ground:#191c20; --panel:#21262c; --ink:#e9e4da; --sub:#a3aab3;
-    --navy:#8fb3da; --navy-soft:#253445; --on-navy:#161a1f;
-    --ok:#63c295; --ok-bg:#1c3a2c;
-    --line:#39404a; --line-soft:#2b3138;
+    --ground:#14171c; --panel:#1c2027; --ink:#e8ecf1; --sub:#9aa4b0;
+    --navy:#7fb0e6; --navy-soft:#1e2a38; --on-navy:#12161b;
+    --ok:#5cc196; --ok-bg:#16302a;
+    --ng:#e88b7c; --ng-bg:#32211e;
+    --warn:#dcae5e; --warn-bg:#332a17;
+    --line:#333a44; --line-soft:#252b33;
   }
 }
 :root[data-theme="dark"]{
-  --ground:#191c20; --panel:#21262c; --ink:#e9e4da; --sub:#a3aab3;
-  --navy:#8fb3da; --navy-soft:#253445; --on-navy:#161a1f;
-  --ok:#63c295; --ok-bg:#1c3a2c;
-  --line:#39404a; --line-soft:#2b3138;
+  --ground:#14171c; --panel:#1c2027; --ink:#e8ecf1; --sub:#9aa4b0;
+  --navy:#7fb0e6; --navy-soft:#1e2a38; --on-navy:#12161b;
+  --ok:#5cc196; --ok-bg:#16302a;
+  --ng:#e88b7c; --ng-bg:#32211e;
+  --warn:#dcae5e; --warn-bg:#332a17;
+  --line:#333a44; --line-soft:#252b33;
 }
 *{box-sizing:border-box}
 body{background:var(--ground); color:var(--ink); margin:0;
