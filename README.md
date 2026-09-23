@@ -10,7 +10,17 @@ https://ailiber1.github.io/tokurei-kasan/
 - 住んでいる市区町村（全国1,741市区町村）と、世帯の人数・年齢を選ぶだけで分かります
 - 入力はブラウザの中だけで処理し、外部へ送信しません
 
-## 2. 解説ページ（setsumei.html）
+## 2. 生活保護と家族への通知（fuyo.html）
+https://ailiber1.github.io/tokurei-kasan/fuyo.html
+
+生活保護を申請すると家族に通知（扶養照会）が行くのか。行かない条件を、厚生労働省の事務連絡をもとに解説しています。
+
+## 3. 生活の相談窓口をさがす（sodan.html）
+https://ailiber1.github.io/tokurei-kasan/sodan.html
+
+都道府県と市区町村を選ぶと、自立相談支援機関の窓口（名前・住所・電話）が出ます。全国1,370か所。
+
+## 4. 特例加算の解説ページ（setsumei.html）
 https://ailiber1.github.io/tokurei-kasan/setsumei.html
 
 上から順に読み進める解説です。「上がる人」「上がらない人」と、その理由を図で示しています。
